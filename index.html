@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dave</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        /* --- CORE STYLES --- */
+
+        :root {
+
+            --bg-color: #f4f4ee;
+            --text-color: #1a1a1a;
+            --accent-color: #1a1a1a;
+            --sidebar-width: 280px;
+            --spacing: 40px;
+            --transition-speed: 0.3s;
+
+        }
+
+        * { box-sizing: border-box; }
+
+
+        body {
+            margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- LAYOUT --- */
+        .container { display: flex; min-height: 100vh; }
+
+        aside {
+            width: var(--sidebar-width);
+            padding: var(--spacing);
+            position: fixed;
+            height: 100vh;
+            border-right: 1px solid #e0e0e0;
+            display: flex; gap: 10px;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+       /* .logo h1 { font-size: 1.4rem; font-weight: 600; margin: 0; letter-spacing: -0.02em; font } */
+       /* .logo p { font-size: 0.85rem; color: var(--accent-color); margin-top: 5px; } */
+		
+		        /* --- H1 FONT STYLING --- */
+        .logo h1 { 
+            font-family: var(--main-font);
+            font-size: 2.0rem; /* Adjusted for impact */
+            margin: 0;
+            letter-spacing: -0.01em;
+            /* For Variable Fonts, use font-variation-settings for precision */
+            font-variation-settings: "wght" 260, "opsz" 144; 
+            line-height: 1.1;
+        }
+
+        .logo p { 
+            font-size: 0.85rem; 
+            color: var(--accent-color); 
+            margin-top: 5px; 
+            font-variation-settings: "wght" 400;
+        }
+
+        nav ul { list-style: none; padding: 0; margin-top: 60px; }
+
+        nav ul li { margin-bottom: 12px; }
+
+        /*nav a {
+
+            text-decoration: none; color: var(--text-color);
+
+            font-size: 1rem; cursor: pointer; transition: color 0.2s;
+
+        }*/
+
+      /*  nav a:hover, nav a.active { color: var(--accent-color); text-decoration: underline; } */
+
+	nav a {
+    text-decoration: none; 
+    color: var(--text-color);
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: all 0.2s ease; /* Transition 'all' to animate the background change */
+    font-variation-settings: "wght" 500;
+    
+    /* Add padding so the background color extends beyond the text */
+    padding: 4px 10px;
+    margin-left: -10px; /* Pulls the text back so it aligns with the logo despite padding */
+    border-radius: 4px; /* Optional: adds slightly rounded corners */
+	}
+		
+
+	nav a:hover, nav a.active { 
+    color: #000; /* Darker text for better contrast on the new background */
+    background-color: #e9e9df; /* A slightly darker shade than your #f4f4ee background */
+    text-decoration: none; /* Removes the underline */
+	}
+
+	a {
+    text-decoration: none; 
+    color: var(--text-color);
+    font-size: 1rem; 
+    cursor: pointer; 
+    transition: all 0.2s ease; /* Transition 'all' to animate the background change */
+    font-variation-settings: "wght" 500;
+    
+    /* Add padding so the background color extends beyond the text */
+    padding: 4px 10px;
+    margin-left: -10px; /* Pulls the text back so it aligns with the logo despite padding */
+    border-radius: 4px; /* Optional: adds slightly rounded corners */
+	}
+		
+
+	a:hover, nav a.active { 
+    color: #000; /* Darker text for better contrast on the new background */
+    background-color: #e9e9df; /* A slightly darker shade than your #f4f4ee background */
+    text-decoration: none; /* Removes the underline */
+	}
+		
+        main {
+
+            margin-left: var(--sidebar-width);
+            padding: var(--spacing);
+            flex-grow: 1;
+            max-width: 1200px;
+        }
+
+
+
+/* --- ABOUT SECTION GRID --- */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing);
+            align-items: start;
+        }
+.about-text {
+            max-width: 600px;
+        }
+
+        /* --- SECTIONS --- */
+
+        .content-section {
+
+            display: none;
+            animation: fadeIn var(--transition-speed) ease-out forwards;
+
+        }
+
+        .content-section.active { display: block; }
+
+
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+        .project-item { margin-bottom: 60px; }
+
+
+
+        /* --- INLINE SLIDER STYLES --- */
+
+        .media-container {
+
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            /*background: #f9f9f9;*/
+
+        }
+
+
+
+        /* The images themselves */
+
+        .slider-image {
+            display: none; /* Hidden by default */
+            width: 100%;
+            height: auto;
+
+        }
+
+        .slider-image.active { display: block; }
+
+
+
+        /* Navigation Arrows (Overlay) */
+
+        .slider-nav {
+
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 15%; /* Broad clickable area */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0; /* Hidden until hover */
+            transition: opacity 0.2s;
+            background: rgba(244,244,238,0.1);
+            color: var(--text-color);
+            font-size: 24px;
+            border: none;
+            outline: none;
+            user-select: none;
+
+        }
+
+
+
+        .media-container:hover .slider-nav { opacity: 1; }
+
+        .prev-btn { left: 0; }
+
+        .next-btn { right: 0; }
+
+        .slider-nav:hover { background: rgba(255,255,255,0.4); }
+
+
+
+        /* Image Counter */
+
+        .slider-counter {
+
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+
+        }
+
+        .media-container:hover .slider-counter { opacity: 1; }
+
+
+
+        /* --- OTHER ELEMENTS --- */
+
+        .description { font-size: 0.9rem; max-width: 700px; }
+        .description h3 { margin: 0 0 10px 0; font-weight: 500; }
+
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+
+        /* --- MOBILE --- */
+
+        @media (max-width: 800px) {
+
+            .container { flex-direction: column; }
+
+            aside {
+
+                position: relative; width: 100%; height: auto;
+                border-right: none; border-bottom: 1px solid #e0e0e0;
+                padding: 30px 20px;
+
+            }
+
+            nav ul { margin-top: 20px; display: flex; gap: 20px; }
+            main { margin-left: 0; padding: 40px 20px; }
+            .slider-nav { opacity: 1; width: 20%; } /* Always show on mobile */
+            .slider-counter { opacity: 1; }
+
+        }
+
+    </style>
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+    <div class="container">
+
+        <aside>
+
+            <div class="logo">
+
+                <h1>Dave Jackson</h1>
+                <p>Selected work</p>
+
+            </div>
+
+            <nav>
+
+                <ul>
+					<li><a id="link-about" onclick="showSection('about')">About</a></li>
+                    <li><a id="link-illustration" class="active" onclick="showSection('illustration')">Illustration</a></li>
+                    <li><a id="link-animation" onclick="showSection('animation')">Animation</a></li>
+					<li><a id="link-gameart" onclick="showSection('gameart')">Game Art</a></li>
+                </ul>
+            </nav>
+
+        </aside>
+
+
+
+        <main>
+
+            <div id="illustration" class="content-section active">
+
+				<div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 3</div>
+                        <img class="slider-image active" src="./_illustrations/landscape/landscape09.jpeg" alt="Image 3">
+                        <img class="slider-image" src="./_illustrations/landscape/landscape15.jpeg" alt="Image 1">	
+						<img class="slider-image" src="./_illustrations/landscape/landscape12.jpeg" alt="Image 1">
+                        <img class="slider-image" src="./_illustrations/landscape/landscape16.jpeg" alt="Image 2">
+                        <img class="slider-image" src="./_illustrations/landscape/landscape14.jpeg" alt="Image 3">
+
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Flash mobile</h3>
+                        <p>Character design and environment work. For 3rdfloor.tv</p>
+
+                    </div>
+
+   				</div>
+				
+				<div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 3</div>
+                        <img class="slider-image active" src="./_cappdamm/graveyard_BG04.jpg" alt="Image 3">
+                        <img class="slider-image" src="./_cappdamm/graveyard_BG21.jpg" alt="Image 1">	
+						<img class="slider-image" src="./_cappdamm/school-back.jpg" alt="Image 1">
+                        <img class="slider-image" src="./_cappdamm/mistletoe_BG12.jpg" alt="Image 2">
+                        <img class="slider-image" src="./_cappdamm/mistletoe_BG16.jpg" alt="Image 3">
+						<img class="slider-image" src="./_cappdamm/polarbearBG02.jpg" alt="Image 3">
+						<img class="slider-image" src="./_cappdamm/porridge_BG01.jpg" alt="Image 3">
+						<img class="slider-image" src="./_cappdamm/porridge_BG03.jpg" alt="Image 3">
+						<img class="slider-image" src="./_cappdamm/wrappingMachine_BG01.jpg" alt="Image 3">
+						<img class="slider-image" src="./_cappdamm/wrappingMachine_BG07.jpg" alt="Image 3">
+
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Cappelen Damm</h3>
+                        <p>Environments. For 3rdfloor.tv</p>
+
+                    </div>
+
+   				</div>
+
+
+                <div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 9</div>
+                        <img class="slider-image active" src="./_illustrations/flexistore/storyboard/Flexistoreyboard_02_012b.png" alt="Image 3">
+                        <img class="slider-image" src="./_illustrations/flexistore/storyboard/Flexistoreyboard_02_001a.png" alt="Image 1">
+                        <img class="slider-image" src="./_illustrations/flexistore/storyboard/Flexistoreyboard_02_001b.png" alt="Image 2">
+                        <img class="slider-image" src="./_illustrations/flexistore/storyboard/Flexistoreyboard_02_020.png" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/storyboards/sb1.png" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/storyboards/sb2.png" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/storyboards/sb3.png" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/storyboards/sb4.png" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/storyboards/sb5.png" alt="Image 3">
+
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Storyboards</h3>
+                        <p>Storyboard illustrations for 3rdfloor.tv</p>
+
+                    </div>
+
+                </div>
+
+  			<div class="project-item" data-current-slide="0">
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 3</div>
+                        <img class="slider-image active" src="./_illustrations/2020/fishing.jpg" alt="Image 3">
+						<img class="slider-image" src="./_illustrations/2020/hammock.png" alt="Image 1">
+                        <img class="slider-image" src="./_illustrations/2020/kayak.png" alt="Image 2">
+						<img class="slider-image" src="./_illustrations/2020/cottage.jpg" alt="Image 1">
+
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+                        <h3>2020</h3>
+                        <p>Personal series</p>
+                    </div>
+
+                </div>
+
+
+                <div class="project-item" data-current-slide="0">
+                    <div class="media-container">
+                        <img class="slider-image active" src="./_illustrations/queue_square-rect.jpg" alt="Image A">
+                    </div>
+                    <div class="description">
+                        <h3>. . .</h3>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 5</div>
+						
+                        <img class="slider-image active" src="./_illustrations/daviation week/08_Skymaster_2.jpg" alt="Image A">
+                        <img class="slider-image" src="./_illustrations/daviation week/08_Skymaster_1.jpg" alt="Image B">
+						<img class="slider-image" src="./_illustrations/daviation week/02_PiperCub_2.jpg" alt="Image B">
+						<img class="slider-image" src="./_illustrations/daviation week/02_PiperCub_1.jpg" alt="Image B">
+						<img class="slider-image" src="./_illustrations/daviation week/03_P38Lightning_2.jpg" alt="Image B">
+						
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Daviation Week</h3>
+						<p>Short series for IG</p>
+
+                    </div>
+
+                </div>
+
+
+				
+				
+
+   <div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+
+                        <img class="slider-image active" src="./_illustrations/theTower.jpg" alt="Image A">
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Radio tower</h3>
+ 
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div id="animation" class="content-section">
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/832201030?h=65c49ba5d7" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>SandboxAQ</h3>
+                        <p>3D animation</p>
+                    </div>
+                </div>
+				
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/1124854036?h=dec5fce842" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Lightfield Labs</h3>
+                        <p>2D/3D animation</p>
+                    </div>
+                </div>
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/502105638?h=71354507cf" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>BudgetSage</h3>
+                        <p>Character and environment design, 2D animation</p>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/425108528?h=ff4bbd5313" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Flexistore</h3>
+                        <p>Behind the scenes for Flexistore, from storyboard all the way to editing the breakdown video.</p>
+                    </div>
+                </div>
+            
+
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/376298718?h=635541d7bb" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Energy Norway</h3>
+                        <p>Storyboard, 3D elements, cel animation</p>
+                    </div>
+                </div>
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/279401265?h=e155e513fd" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Siemens</h3>
+                        <p>3D Animation</p>
+                    </div>
+                </div>
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/366191643?h=d6b4607b1a" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Montage</h3>
+
+                    </div>
+                </div>
+				
+                <div class="project-item">
+                    <div class="media-container">
+                        <div class="video-wrapper">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/561752162?h=a6c231a3ab" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h3>Short film</h3>
+                        <p>I create short films to enjoy every part of the process, from initial sketches to getting sucked into the minutia of grading.</p>
+                    </div>
+                </div>
+				
+            </div>
+			
+			
+            <div id="gameart" class="content-section">
+
+				<div class="project-item" data-current-slide="0">
+
+                    <div class="media-container">
+                        <div class="slider-counter">1 / 3</div>
+                        <img class="slider-image active" src="./_gameart/ga-1.jpg" alt="Image 3">
+                        <img class="slider-image" src="./_gameart/ga-2.jpg" alt="Image 1">	
+						<img class="slider-image" src="./_gameart/ga-3.jpg" alt="Image 1">
+                        <img class="slider-image" src="./_gameart/ga-4.jpg" alt="Image 2">
+
+
+                        <button class="slider-nav prev-btn" onclick="changeSlide(this, -1)">&#10094;</button>
+                        <button class="slider-nav next-btn" onclick="changeSlide(this, 1)">&#10095;</button>
+
+                    </div>
+
+                    <div class="description">
+
+                        <h3>Prototypes</h3>
+
+
+                    </div>
+
+   				</div>
+			</div>
+
+ 		<div id="about" class="content-section">
+
+                    <div class="about-text">
+
+                        <h2>About Me</h2>
+
+                        <p>I’m an After Effects veteran, 3D generalist in Blender, storyboard illustrator, video editor and designer.</p>
+
+                        <p>I’ve been working in the multimedia space for over 15 years. I started out as a web designer when Flash was big then moved solely into video. I picked up Cinema 4D in around 2009 and became a Blender convert in early 2025.</p>
+
+						<p>I’ve worked in small studios, big agencies and independently. I’m now based in Johannesburg working with Cape Town animation studio 3rd Floor. You can see our work at www.3rdfloor.tv</p>
+						
+
+                        <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+                        <h3>Other places</h3>
+                        <a href="http://instagram.com/onetruedave" target="_blank">Instagram</a><br>
+						<a href="https://www.behance.net/dave_jackson" target="_blank">Behance</a>
+						
+                    </div>
+                
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+
+        /* --- SECTION SWITCHING --- */
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById('link-' + sectionId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        }
+
+
+
+        /* --- INLINE SLIDER LOGIC --- */
+
+        function changeSlide(btn, direction) {
+
+            // 1. Find the project item that contains this button
+
+            const projectItem = btn.closest('.project-item');
+            const images = projectItem.querySelectorAll('.slider-image');
+            const counter = projectItem.querySelector('.slider-counter');
+
+            // 2. Get current index from data attribute
+            let currentIndex = parseInt(projectItem.getAttribute('data-current-slide'));
+
+            // 3. Remove active class from current image
+            images[currentIndex].classList.remove('active');
+
+            // 4. Calculate new index
+            currentIndex += direction;
+            if (currentIndex >= images.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+
+            // 5. Apply active class to new image and update counter
+            images[currentIndex].classList.add('active');
+            projectItem.setAttribute('data-current-slide', currentIndex);
+            counter.innerText = (currentIndex + 1) + " / " + images.length;
+        }
+    </script>
+
+</body>
+</html>
