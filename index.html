@@ -16,6 +16,11 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	
+
+<script src="https://unpkg.com/@esotericsoftware/spine-player@4.2.*/dist/iife/spine-player.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.2.*/dist/spine-player.css">
+	
 <link rel="manifest" href="/site.webmanifest">
 
 
@@ -572,7 +577,7 @@
                 <div class="project-item">
                     <div class="media-container">
                         <div class="video-wrapper">
-<iframe width="640" height="360" src="https://www.youtube.com/embed/fvL8uAJCq_w" title="Siemensr" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/fvL8uAJCq_w" title="Siemens" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="description">
@@ -609,6 +614,27 @@
 			
 			
             <div id="gameart" class="content-section">
+				
+								<div class="project-item" >
+
+									<div id="player-container" style="width: 640px; height: 640px;"></div>
+										<script>
+											new spine.SpinePlayer("player-container", {
+												skeleton: "cd_spine/evilSanta_v3/evilSanta.json",
+												atlas: "cd_spine/evilSanta_v3/evilSanta.png",
+												scale: 1,
+												});
+										</script>
+
+			                    <div class="description">
+									<br>
+
+  		                      <h3>Spine animation</h3>
+								<p>for Cappelen Damm </p>
+
+		                    </div>
+
+   								</div>
 
 				<div class="project-item" data-current-slide="0">
 
@@ -630,12 +656,15 @@
 
                     <div class="description">
 
-                        <h3>Prototypes</h3>
+                        <h3>Unity Prototypes</h3>
 						<p></p>
 
                     </div>
 
    				</div>
+				
+
+				
 			</div>
 
  		<div id="about" class="content-section">
