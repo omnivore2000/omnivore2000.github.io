@@ -615,24 +615,28 @@
 			
             <div id="gameart" class="content-section">
 				
-								<div class="project-item" >
-
-									<div id="player-container" style="width: 640px; height: 640px;"></div>
-										<script>
-											new spine.SpinePlayer("player-container", {
-												skeleton: "https://omnivore2000.github.io/cd_spine/evilSanta_v3/EvilSanta.json",
-												atlas: "https://omnivore2000.github.io/cd_spine/evilSanta_v3/EvilSanta.png",
-												scale: 1,
-												});
-										</script>
-
-			                    <div class="description">
-									<br>
-
-  		                      <h3>Spine animation</h3>
-								<p>for Cappelen Damm </p>
-
-		                    </div>
+<div class="project-item">
+    <div id="player-container" style="width: 100%; max-width: 640px; height: 480px;"></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new spine.SpinePlayer("player-container", {
+                skeleton: "https://omnivore2000.github.io/cd_spine/evilSanta_v3/EvilSanta.json",
+                atlas: "https://omnivore2000.github.io/cd_spine/evilSanta_v3/EvilSanta.atlas",
+                animation: "idle", // Specify your default animation name if it doesn't auto-play
+                showControls: true,
+                alpha: true, // Set to true if your canvas background needs transparency
+                backgroundColor: "#00000000"
+            });
+        });
+    </script>
+    
+    <div class="description">
+        <br>
+        <h3>Spine animation</h3>
+        <p>for Cappelen Damm</p>
+    </div>
+</div>
 
    								</div>
 
