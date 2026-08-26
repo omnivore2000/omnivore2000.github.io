@@ -1,0 +1,66 @@
+EvilSanta.png
+size:347,1029
+filter:Linear,Linear
+scale:0.6
+Head
+bounds:226,200,131,109
+rotate:90
+L-arm-lower
+bounds:182,327,100,42
+rotate:90
+L-arm-upper
+bounds:226,542,116,148
+L-leg
+bounds:168,72,53,155
+L-shoe
+bounds:226,692,119,97
+Plattform
+bounds:2,2,385,92
+offsets:0,1,391,93
+rotate:90
+R-arm-4
+bounds:223,162,36,53
+offsets:0,2,36,55
+rotate:90
+R-arm-lower
+bounds:283,67,131,60
+rotate:90
+R-arm-upper
+bounds:226,430,110,115
+rotate:90
+R-arm3
+bounds:96,142,106,70
+rotate:90
+R-leg
+bounds:2,389,38,178
+rotate:90
+R-shoe
+bounds:226,333,111,95
+Torso
+bounds:2,791,339,236
+attack_expression
+bounds:96,250,64,80
+rotate:90
+damage expression
+bounds:96,79,61,70
+rotate:90
+hand weapon
+bounds:96,316,82,71
+offsets:1,0,83,71
+hat back
+bounds:223,126,37,34
+offsets:0,4,37,38
+hat front
+bounds:96,3,91,67
+hat spike ball
+bounds:178,229,47,42
+rotate:90
+weapon
+bounds:2,429,360,222
+offsets:0,0,360,223
+rotate:90
+weapon-flash
+bounds:189,7,63,92
+rotate:90
+weapon-projectile
+bounds:180,278,44,47
